@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">배달주문 서비스</string>
+    <string name="ip">http://172.16.36.198</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
