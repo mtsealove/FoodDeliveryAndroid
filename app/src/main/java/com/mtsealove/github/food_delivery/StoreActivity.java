@@ -70,4 +70,8 @@ public class StoreActivity extends AppCompatActivity {
                     .into(profileIv);
         }
     }
+
+    public String getManagerID() {
+        return restaurant.getID();
+    }
 }

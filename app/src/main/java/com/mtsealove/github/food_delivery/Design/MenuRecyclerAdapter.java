@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mtsealove.github.food_delivery.Entity.Menu;
 import com.mtsealove.github.food_delivery.Entity.Restaurant;
+import com.mtsealove.github.food_delivery.Fragments.ItemListFragment;
 import com.mtsealove.github.food_delivery.R;
 import com.mtsealove.github.food_delivery.StoreActivity;
 
@@ -60,14 +59,16 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         ImageView imgIv;
         TextView nameTv, priceTv, desTv;
         LinearLayout clickLayout;
+        Button orderBtn;
 
         ItemViewHolder(View itemView) {
             super(itemView);
 
-            imgIv=itemView.findViewById(R.id.imgIv);
-            nameTv=itemView.findViewById(R.id.nameTv);
-            priceTv=itemView.findViewById(R.id.priceTv);
-            desTv=itemView.findViewById(R.id.desTv);
+            imgIv = itemView.findViewById(R.id.imgIv);
+            nameTv = itemView.findViewById(R.id.nameTv);
+            priceTv = itemView.findViewById(R.id.priceTv);
+            desTv = itemView.findViewById(R.id.desTv);
+            orderBtn = itemView.findViewById(R.id.orderBtn);
             clickLayout = itemView.findViewById(R.id.clickLayout);
         }
 
@@ -79,9 +80,17 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
                         .into(imgIv);
             }
             nameTv.setText(data.getItemName());
-            priceTv.setText("₩"+data.getPrice());
-            if(data.getDes()!=null)
-            desTv.setText(data.getDes());
+            priceTv.setText("₩" + data.getPrice());
+            if (data.getDes() != null)
+                desTv.setText(data.getDes());
+
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemListFragment.orderList.add(data.getID());
+                    Toast.makeText(context, "메뉴가 추가되었습니다", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
