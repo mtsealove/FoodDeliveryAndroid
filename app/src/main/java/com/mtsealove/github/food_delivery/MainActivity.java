@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.*;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
         lunch_box.setOnClickListener(CatClickListener);
         coffee.setOnClickListener(CatClickListener);
         dessert.setOnClickListener(CatClickListener);
+
+        dropKeyboard();
+    }
+
+    private void dropKeyboard() {
+
+        View view=this.getCurrentFocus();
+        if(view!=null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 
     //위치 정보 알아내기

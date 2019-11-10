@@ -136,6 +136,7 @@ public class ItemListFragment extends Fragment {
                             } else {
                                 Intent intent = new Intent(getContext(), OrderSheetActivity.class);
                                 intent.putExtra("orderList", orderList);
+                                intent.putExtra("managerID", managerID);
                                 getContext().startActivity(intent);
                             }
                         }

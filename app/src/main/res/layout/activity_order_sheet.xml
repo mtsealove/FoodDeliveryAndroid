@@ -54,6 +54,7 @@
                           android:textColor="@color/black" />
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/priceTv"
                           android:textColor="@color/red"
                           android:textSize="20sp"
                           android:text="18,000원" />

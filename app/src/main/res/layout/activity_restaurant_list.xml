@@ -20,7 +20,7 @@
                   android:textColor="@color/black"
                   android:layout_marginTop="10dp"
                   android:layout_marginLeft="10dp"
-                  android:textStyle="bold" />
+                  android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/restaurantRv"
@@ -28,11 +28,10 @@
                 android:layout_height="wrap_content"
         ></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-    <LinearLayout android:layout_width="300dp" android:layout_height="match_parent"
-                  android:layout_gravity="start"
-                  android:background="@color/white"
-                  android:orientation="vertical">
-
-    </LinearLayout>
+    <com.mtsealove.github.food_delivery.Design.DrawerView
+            android:layout_width="300dp" android:layout_height="match_parent"
+            android:layout_gravity="start"
+    >
+    </com.mtsealove.github.food_delivery.Design.DrawerView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
