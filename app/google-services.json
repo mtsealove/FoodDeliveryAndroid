@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "612277715162",
+    "firebase_url": "https://deliveryservice-59d96.firebaseio.com",
+    "project_id": "deliveryservice-59d96",
+    "storage_bucket": "deliveryservice-59d96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612277715162:android:751bb74bb7c4cba39f25e3",
+        "android_client_info": {
+          "package_name": "com.mtsealove.github.food_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612277715162-0i4h0iujeip6rninm0ubn9fccg63crtq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeAoJy53TthoeeWZMQnV6g_EuEl5FPQcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612277715162-0i4h0iujeip6rninm0ubn9fccg63crtq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

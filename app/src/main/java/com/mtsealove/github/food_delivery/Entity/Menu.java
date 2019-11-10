@@ -1,6 +1,8 @@
 package com.mtsealove.github.food_delivery.Entity;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
     int ID, Price;
     String ItemName, ManagerID, ImagePath, Des;
 

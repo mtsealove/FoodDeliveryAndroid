@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void SetAddress(Location location) {
         geocoder = new Geocoder(this);
         try {
-            List<android.location.Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 10);
+            List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 10);
             if (addressList != null) {
                 Address = addressList.get(0).getAddressLine(0);
                 addressTv.setText(Address);

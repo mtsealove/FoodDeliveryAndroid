@@ -1,5 +1,6 @@
 package com.mtsealove.github.food_delivery.Restful;
 
+import androidx.annotation.Nullable;
 import com.mtsealove.github.food_delivery.Entity.Menu;
 import com.mtsealove.github.food_delivery.Entity.Restaurant;
 import retrofit2.Call;
@@ -14,4 +15,7 @@ public interface RetrofitService {
 
     @GET("DeliveryService/Android/Get/MenuList.php")
     Call<List<Menu>> GetMenuList(@Query("managerID") String managerID);
+
+    @GET("DeliveryService/Android/Get/Menu.php")
+    Call<Menu> GetMenu(@Query("ItemID") int ID);
 }

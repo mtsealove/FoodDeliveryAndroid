@@ -2,8 +2,6 @@ package com.mtsealove.github.food_delivery.Design;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mtsealove.github.food_delivery.Entity.Menu;
-import com.mtsealove.github.food_delivery.Entity.Restaurant;
 import com.mtsealove.github.food_delivery.Fragments.ItemListFragment;
+import com.mtsealove.github.food_delivery.OrderSheetActivity;
 import com.mtsealove.github.food_delivery.R;
-import com.mtsealove.github.food_delivery.StoreActivity;
 
 import java.util.ArrayList;
 
-public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.ItemViewHolder> {
+public class MenuOrderRecyclerAdapter extends RecyclerView.Adapter<MenuOrderRecyclerAdapter.ItemViewHolder> {
     Context context;
 
-    public MenuRecyclerAdapter(Context context) {
+    public MenuOrderRecyclerAdapter(Context context) {
         this.context = context;
     }
 
     private ArrayList<Menu> listData = new ArrayList<>();
+
+    public ArrayList<Menu> getListData() {
+        return listData;
+    }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
         // return 인자는 ViewHolder 입니다.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_menu, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_menu_order, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -60,7 +61,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         ImageView imgIv;
         TextView nameTv, priceTv, desTv;
         LinearLayout clickLayout;
-        Button orderBtn;
+        Button removeBtn;
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -69,7 +70,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
             nameTv = itemView.findViewById(R.id.nameTv);
             priceTv = itemView.findViewById(R.id.priceTv);
             desTv = itemView.findViewById(R.id.desTv);
-            orderBtn = itemView.findViewById(R.id.orderBtn);
+            removeBtn = itemView.findViewById(R.id.removeBtn);
             clickLayout = itemView.findViewById(R.id.clickLayout);
         }
 
@@ -84,14 +85,14 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
             priceTv.setText("₩" + data.getPrice());
             if (data.getDes() != null)
                 desTv.setText(data.getDes());
-
-            orderBtn.setOnClickListener(new View.OnClickListener() {
+            removeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemListFragment.orderList.add(data.getID());
-                    Toast.makeText(context, "메뉴가 추가되었습니다", Toast.LENGTH_SHORT).show();
+                    listData.remove(data);
+                    OrderSheetActivity.menuRv.setAdapter(MenuOrderRecyclerAdapter.this);
                 }
             });
+
         }
     }
 }

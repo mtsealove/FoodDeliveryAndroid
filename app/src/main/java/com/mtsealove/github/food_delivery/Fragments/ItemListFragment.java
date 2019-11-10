@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mtsealove.github.food_delivery.Design.MenuRecyclerAdapter;
 import com.mtsealove.github.food_delivery.Entity.Menu;
+import com.mtsealove.github.food_delivery.Entity.MenuList;
 import com.mtsealove.github.food_delivery.OrderSheetActivity;
 import com.mtsealove.github.food_delivery.R;
 import com.mtsealove.github.food_delivery.Restful.RestAPI;
@@ -37,6 +38,7 @@ public class ItemListFragment extends Fragment {
     String tag = getClass().getSimpleName();
     RecyclerView recyclerView;
     FloatingActionButton confirmBtn;
+
     public static ArrayList<Integer> orderList;
     private String managerID;
 
@@ -76,7 +78,7 @@ public class ItemListFragment extends Fragment {
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lm);
         confirmBtn = view.findViewById(R.id.confirmBtn);
-        orderList = new ArrayList<>();
+        orderList=new ArrayList<>();
         GetItemList();
         return view;
     }
@@ -119,12 +121,13 @@ public class ItemListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
                 if (response.isSuccessful()) {
+
                     MenuRecyclerAdapter adapter = new MenuRecyclerAdapter(getContext());
                     for (Menu menu : response.body()) {
-                        Log.d(tag, menu.toString());
                         adapter.addItem(menu);
                     }
                     recyclerView.setAdapter(adapter);
+                    //플로팅 버튼 리스너
                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -132,7 +135,7 @@ public class ItemListFragment extends Fragment {
                                 Toast.makeText(getContext(), "선택한 상품이 없어요", Toast.LENGTH_SHORT).show();
                             } else {
                                 Intent intent = new Intent(getContext(), OrderSheetActivity.class);
-                                intent.putIntegerArrayListExtra("orderList", orderList);
+                                intent.putExtra("orderList", orderList);
                                 getContext().startActivity(intent);
                             }
                         }

@@ -145,12 +145,14 @@ public class RestaurantListActivity extends AppCompatActivity {
                 } else {
                     Log.e(tag, "파싱 실패");
                     Log.e(tag, response.toString());
+                    progressDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Restaurant>> call, Throwable t) {
                 Log.e(tag, t.getMessage());
+                progressDialog.dismiss();
             }
         });
     }
