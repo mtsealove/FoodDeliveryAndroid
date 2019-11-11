@@ -41,7 +41,7 @@ public class OrderSheetActivity extends AppCompatActivity {
     String address = null;
     EditText addressEt;
     Button orderBtn;
-    TextView priceTv;
+    public static TextView priceTv;
     public static RecyclerView menuRv;
     MenuOrderRecyclerAdapter recyclerAdapter;
     String managerID;
@@ -102,7 +102,7 @@ public class OrderSheetActivity extends AppCompatActivity {
 
     int price = 0;
 
-    private void GetItem(int ID) {
+    public void GetItem(int ID) {
         RestAPI restAPI = new RestAPI(this);
         Call<Menu> call = restAPI.getRetrofitService().GetMenu(ID);
         call.enqueue(new Callback<Menu>() {
@@ -152,6 +152,7 @@ public class OrderSheetActivity extends AppCompatActivity {
 
     //주문 만들기
     private void CreateOrder() {
+
         orderDialog = new ProgressDialog(this);
         orderDialog.setMessage("주문을 처리중입니다");
         orderDialog.setCancelable(false);
@@ -159,7 +160,14 @@ public class OrderSheetActivity extends AppCompatActivity {
         done = 0;
         RestAPI restAPI = new RestAPI(this);
         //익명 사용자 ID
-        String memberID = FirebaseInstanceId.getInstance().getId();
+
+        String memberID;
+        //로그인되어 있는지 확인
+        if (LoginActivity.login == null) {
+            memberID = FirebaseInstanceId.getInstance().getId();
+        } else {
+            memberID = LoginActivity.login.getID();
+        }
         //주문 시간
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String orderTime = dateFormat.format(new Date(System.currentTimeMillis()));

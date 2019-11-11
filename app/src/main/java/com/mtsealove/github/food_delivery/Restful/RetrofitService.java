@@ -1,8 +1,6 @@
 package com.mtsealove.github.food_delivery.Restful;
 
-import com.mtsealove.github.food_delivery.Entity.Menu;
-import com.mtsealove.github.food_delivery.Entity.Restaurant;
-import com.mtsealove.github.food_delivery.Entity.Result;
+import com.mtsealove.github.food_delivery.Entity.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -25,4 +23,19 @@ public interface RetrofitService {
                            @Field("OrderTime") String OrderTime,
                            @Field("Location") String Location,
                            @Field("ItemID") int itemID);
+
+    @GET("DeliveryService/Android/Get/CurrentOrder.php")
+    Call<List<Order>> GetCurrentOrder(@Query("MemberID") String MemberID);
+
+    @FormUrlEncoded
+    @POST("DeliveryService/Android/Post/Login.php")
+    Call<ResLogin> PostLogin(@Field("ID") String ID, @Field("Password") String password);
+
+    @FormUrlEncoded
+    @POST("DeliveryService/Android/Post/IdCheck.php")
+    Call<ResIdExist> CheckIdExist(@Field("ID") String ID);
+
+    @FormUrlEncoded
+    @POST("DeliveryService/Android/Post/CreateMember.php")
+    Call<Result> CreateMember(@Field("ID") String ID, @Field("Name") String name, @Field("Password") String password);
 }

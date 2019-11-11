@@ -15,6 +15,17 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".SignUpActivity">
+        </activity>
+        <activity android:name=".LoginActivity">
+        </activity>
+
+        <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="1742baf1a31e636ddcceafc5e6170e2a"/>
+
+        <activity android:name=".CurrentOrderActivity">
+        </activity>
         <activity android:name=".OrderSheetActivity">
         </activity>
         <activity android:name=".StoreActivity">
@@ -30,14 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service
-                android:name=".Services.FireBaseMessagingService">
+
+        <service android:name=".Services.FireBaseMessagingService">
             <intent-filter>
-
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-
             </intent-filter>
-
         </service>
     </application>
 

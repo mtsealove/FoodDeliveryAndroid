@@ -23,7 +23,7 @@
                   android:textSize="20sp"
                   android:textColor="@color/black"
                   android:textStyle="bold"
-                  android:text="배달주문 서비스"/>
+                  android:text="주문배달 서비스"/>
     </LinearLayout>
 
     <View

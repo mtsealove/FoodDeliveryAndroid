@@ -2,6 +2,7 @@ package com.mtsealove.github.food_delivery.Restful;
 
 import android.content.Context;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mtsealove.github.food_delivery.R;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -26,12 +27,16 @@ public class RestAPI {
                 .build();
         //데이터를 받아올 API
 
+        Gson gson= new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit.Builder builder=new Retrofit.Builder();
 
         retrofit = builder
                 .baseUrl(context.getResources().getString(R.string.ip))
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
 

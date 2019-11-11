@@ -1,7 +1,9 @@
 package com.mtsealove.github.food_delivery.Design;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mtsealove.github.food_delivery.Entity.Menu;
+import com.mtsealove.github.food_delivery.Entity.Order;
 import com.mtsealove.github.food_delivery.Fragments.ItemListFragment;
 import com.mtsealove.github.food_delivery.OrderSheetActivity;
 import com.mtsealove.github.food_delivery.R;
@@ -76,7 +79,7 @@ public class MenuOrderRecyclerAdapter extends RecyclerView.Adapter<MenuOrderRecy
 
         void onBind(final Menu data) {
 
-            if (data.getImagePath() != null&&data.getImagePath().length()!=0) {
+            if (data.getImagePath() != null && data.getImagePath().length() != 0) {
                 Glide.with(context)
                         .load(context.getResources().getString(R.string.ip) + "/DeliveryService/Images/" + data.getImagePath())
                         .into(imgIv);
@@ -89,9 +92,15 @@ public class MenuOrderRecyclerAdapter extends RecyclerView.Adapter<MenuOrderRecy
                 @Override
                 public void onClick(View v) {
                     listData.remove(data);
-                    OrderSheetActivity.menuRv.setAdapter(MenuOrderRecyclerAdapter.this);
+                     OrderSheetActivity.menuRv.setAdapter(MenuOrderRecyclerAdapter.this);
+                     int price=0;
+                    for(Menu menu: listData) {
+                        price+=menu.getPrice();
+                    }
+                    OrderSheetActivity.priceTv.setText(price+"원");
                 }
             });
+
 
         }
     }

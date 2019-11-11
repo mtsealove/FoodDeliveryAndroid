@@ -5,12 +5,15 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import com.mtsealove.github.food_delivery.MainActivity;
 import com.mtsealove.github.food_delivery.R;
 
 public class TitleView extends RelativeLayout {
     Context context;
-    String tag=getClass().getSimpleName();
+    String tag = getClass().getSimpleName();
+    ImageView menuIv;
 
     public TitleView(Context context) {
         super(context);
@@ -36,9 +39,24 @@ public class TitleView extends RelativeLayout {
         this.context = context;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Log.d(tag, String.valueOf(R.layout.view_title));
-        if(inflater!=null) {
-            View layout = inflater.inflate(R.layout.view_title, TitleView.this, false);
-            addView(layout);
+
+        View layout = inflater.inflate(R.layout.view_title, TitleView.this, false);
+        menuIv=layout.findViewById(R.id.menuIv);
+        menuIv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenDrawer();
+            }
+        });
+        addView(layout);
+    }
+
+    private void OpenDrawer() {
+        switch (context.getClass().getSimpleName()){
+            case "MainActivity":
+                MainActivity.OpenDrawer();
+                break;
         }
     }
+
 }

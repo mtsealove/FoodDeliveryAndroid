@@ -9,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import com.mtsealove.github.food_delivery.Design.SystemUiTuner;
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText searchEt;
     TextView addressTv;
     ProgressBar loadPb;
+    static DrawerLayout drawerLayout;
 
     //위치 관련
     LocationManager lm;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         searchEt = findViewById(R.id.searchEt);
         addressTv = findViewById(R.id.addressTv);
         loadPb = findViewById(R.id.loadPb);
+        drawerLayout = findViewById(R.id.drawerLayout);
 
         GetLocation();
         korean.setOnClickListener(CatClickListener);
@@ -64,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void dropKeyboard() {
 
-        View view=this.getCurrentFocus();
-        if(view!=null) {
+        View view = this.getCurrentFocus();
+        if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
@@ -163,4 +167,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    public static void OpenDrawer() {
+        if(!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+    }
 }

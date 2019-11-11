@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.mtsealove.github.food_delivery.Fragments.ItemListFragment;
+import com.mtsealove.github.food_delivery.Fragments.ReviewFragment;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
     private int count;
@@ -19,8 +20,8 @@ public class PageAdapter extends FragmentStatePagerAdapter {
                 ItemListFragment itemListFragment = new ItemListFragment();
                 return itemListFragment;
             case 1:
-                ItemListFragment fragment = new ItemListFragment();
-                return fragment;
+                ReviewFragment reviewFragment=new ReviewFragment();
+                return reviewFragment;
         }
         return new ItemListFragment();
     }
