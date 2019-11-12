@@ -1,5 +1,6 @@
 package com.mtsealove.github.food_delivery.Restful;
 
+import androidx.cardview.widget.CardView;
 import com.mtsealove.github.food_delivery.Entity.*;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -38,4 +39,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("DeliveryService/Android/Post/CreateMember.php")
     Call<Result> CreateMember(@Field("ID") String ID, @Field("Name") String name, @Field("Password") String password);
+
+    @GET("DeliveryService/Android/Get/Review.php")
+    Call<List<Review>> GetReview(@Query("ManagerID") String managerID);
+
+    @FormUrlEncoded
+    @POST("DeliveryService/Android/Post/CreateReview.php")
+    Call<Result> CreateReview(@Field("MemberID") String memberID, @Field("ManagerID") String managerID, @Field("Content") String content);
 }
