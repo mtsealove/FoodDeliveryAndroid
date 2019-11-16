@@ -1,6 +1,7 @@
 package com.mtsealove.github.food_delivery.Restful;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mtsealove.github.food_delivery.R;
@@ -9,6 +10,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //RestApi
 public class RestAPI {
@@ -34,7 +37,7 @@ public class RestAPI {
         Retrofit.Builder builder=new Retrofit.Builder();
 
         retrofit = builder
-                .baseUrl(context.getResources().getString(R.string.ip))
+                .baseUrl(GetIP())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -47,4 +50,10 @@ public class RestAPI {
     public RetrofitService getRetrofitService() {
         return retrofitService;
     }
+
+    private String GetIP() {
+        SharedPreferences pref = context.getSharedPreferences("pref", MODE_PRIVATE);
+        return "http://"+pref.getString("ip", "");
+    }
+
 }

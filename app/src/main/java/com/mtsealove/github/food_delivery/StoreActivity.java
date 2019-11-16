@@ -1,6 +1,7 @@
 package com.mtsealove.github.food_delivery;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,12 +67,17 @@ public class StoreActivity extends AppCompatActivity {
         nameTv.setText(restaurant.getBusinessName());
         if (restaurant.getProfileImage() != null) {
             Glide.with(this)
-                    .load(getResources().getString(R.string.ip) + "/DeliveryService/Images/" + restaurant.getProfileImage())
+                    .load(GetIP() + "/DeliveryService/Images/" + restaurant.getProfileImage())
                     .into(profileIv);
         }
     }
 
     public String getManagerID() {
         return restaurant.getID();
+    }
+
+    private String GetIP() {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return "http://"+pref.getString("ip", "");
     }
 }

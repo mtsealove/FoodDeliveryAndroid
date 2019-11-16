@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.location.*;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -11,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.mtsealove.github.food_delivery.Design.DrawerView;
 import com.mtsealove.github.food_delivery.Design.SystemUiTuner;
 
 import java.io.IOException;
@@ -19,10 +25,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     //음식 종류
     LinearLayout korean, western, chinese, fish, chicken, burger, lunch_box, coffee, dessert;
-    EditText searchEt;
     TextView addressTv;
     ProgressBar loadPb;
     static DrawerLayout drawerLayout;
+    AdView adView;
+    String tag=getClass().getSimpleName();
 
     //위치 관련
     LocationManager lm;
@@ -47,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         lunch_box = findViewById(R.id.lunch_box);
         coffee = findViewById(R.id.coffee);
         dessert = findViewById(R.id.dessert);
-        searchEt = findViewById(R.id.searchEt);
         addressTv = findViewById(R.id.addressTv);
         loadPb = findViewById(R.id.loadPb);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -62,8 +68,21 @@ public class MainActivity extends AppCompatActivity {
         lunch_box.setOnClickListener(CatClickListener);
         coffee.setOnClickListener(CatClickListener);
         dessert.setOnClickListener(CatClickListener);
+        adView=findViewById(R.id.adView);
 
         dropKeyboard();
+        SetAdView();
+
+        DrawerView.checkLogin();
+    }
+
+    private void SetAdView() {
+        Bundle extras = new Bundle();
+        extras.putString("max_ad_content_rating", "G"); // 앱이 3세 이상 사용가능이라면 광고레벨을 설정해줘야 한다
+        AdRequest adRequest = new AdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                .build();
+        adView.loadAd(adRequest);
     }
 
     private void dropKeyboard() {

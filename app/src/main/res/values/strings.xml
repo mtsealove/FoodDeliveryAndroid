@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">배달주문 서비스</string>
-    <string name="ip">http://192.168.10.39</string>
+    <string name="app_name">주문배달 서비스</string>
+    <string name="ip">http://172.16.37.71</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_notification_channel_name">channel_name</string>
     <string name="default_notification_channel_id">80</string>
+    <string name="admob_app_id">ca-app-pub-6481386291500325~1315791761</string>
+    <string name="banner_ad_unit_id">ca-app-pub-6481386291500325/7869947047</string>
+    <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

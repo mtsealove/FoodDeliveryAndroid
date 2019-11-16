@@ -3,6 +3,7 @@ package com.mtsealove.github.food_delivery.Design;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.mtsealove.github.food_delivery.R;
 import com.mtsealove.github.food_delivery.StoreActivity;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.ItemViewHolder> {
     Context context;
@@ -75,7 +78,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
 
             if (data.getImagePath() != null&&data.getImagePath().length()!=0) {
                 Glide.with(context)
-                        .load(context.getResources().getString(R.string.ip) + "/DeliveryService/Images/" + data.getImagePath())
+                        .load(GetIP() + "/DeliveryService/Images/" + data.getImagePath())
                         .into(imgIv);
             }
             nameTv.setText(data.getItemName());
@@ -91,5 +94,9 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
                 }
             });
         }
+    }
+    private String GetIP() {
+        SharedPreferences pref = context.getSharedPreferences("pref", MODE_PRIVATE);
+        return "http://"+pref.getString("ip", "");
     }
 }

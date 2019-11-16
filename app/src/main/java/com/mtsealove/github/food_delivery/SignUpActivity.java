@@ -120,8 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                if(response.isSuccessful()) {
-                    if(response.body().getResult().equals("Ok")) {
+                if (response.isSuccessful()) {
+                    if (response.body().getResult().equals("Ok")) {
                         Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
                         finish();
                     }

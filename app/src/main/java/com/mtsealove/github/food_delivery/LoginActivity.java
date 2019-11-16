@@ -1,6 +1,7 @@
 package com.mtsealove.github.food_delivery;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mtsealove.github.food_delivery.Design.DrawerView;
 import com.mtsealove.github.food_delivery.Design.SystemUiTuner;
 import com.mtsealove.github.food_delivery.Entity.ResLogin;
@@ -60,9 +62,10 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
         } else {
             RestAPI restAPI = new RestAPI(this);
-            String ID = idEt.getText().toString();
-            String pw = pwEt.getText().toString();
-            Call<ResLogin> call = restAPI.getRetrofitService().PostLogin(ID, pw);
+            final String ID = idEt.getText().toString();
+            final String pw = pwEt.getText().toString();
+            String token= FirebaseInstanceId.getInstance().getToken();
+            Call<ResLogin> call = restAPI.getRetrofitService().PostLogin(ID, pw, token);
             call.enqueue(new Callback<ResLogin>() {
                 @Override
                 public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.login = login;
                             DrawerView.checkLogin();
                             Toast.makeText(LoginActivity.this, "환영합니다.\n" + login.getName() + "님", Toast.LENGTH_SHORT).show();
+                            SaveAccount(ID, pw);
                             finish();
                         }
                     }
@@ -85,5 +89,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void SaveAccount(String id, String pw){
+        SharedPreferences pref=getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.putString("id", id);
+        editor.putString("pw", pw);
+        editor.commit();
     }
 }
