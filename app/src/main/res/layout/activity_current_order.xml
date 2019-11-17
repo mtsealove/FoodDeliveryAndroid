@@ -9,15 +9,19 @@
         tools:context=".CurrentOrderActivity">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:orientation="vertical">
+    android:background="@drawable/background_fresh_mobile">
 
         <com.mtsealove.github.food_delivery.Design.TitleView
                 android:id="@+id/titleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:background="@drawable/trans_back"
+                        android:layout_margin="15dp"
+                        android:layout_below="@id/titleView">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/titleTv"
-                  android:layout_below="@id/titleView"
                   android:layout_margin="10dp"
                   android:textSize="24sp"
                   android:textColor="@color/black"
@@ -25,8 +29,8 @@
                   android:text="주문상태"/>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="200dp"
-                      android:layout_marginHorizontal="20dp"
                       android:layout_below="@id/titleTv"
+                      android:layout_marginHorizontal="10dp"
                       android:id="@+id/mapLayout"
                       android:orientation="vertical">
         </LinearLayout>
@@ -35,7 +39,7 @@
                   android:textColor="@color/blue"
                   android:layout_below="@id/mapLayout"
                   android:layout_marginTop="5dp"
-                  android:layout_marginLeft="20dp"
+                  android:layout_marginLeft="10dp"
                   android:textSize="18sp"
                   android:text="위치" />
 
@@ -43,16 +47,16 @@
                   android:id="@+id/statusTv"
                   android:textColor="@color/red"
                   android:layout_below="@+id/currentLocationTv"
-                  android:layout_marginLeft="20dp"
+                  android:layout_marginLeft="10dp"
                   android:textSize="18sp"
                   android:text="상태" />
 
         <ListView android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:layout_marginHorizontal="20dp"
-                  android:layout_marginBottom="20dp"
+                  android:layout_marginHorizontal="10dp"
+                  android:layout_marginBottom="10dp"
                   android:layout_below="@id/statusTv"
                   android:id="@+id/itemLv" />
-
+        </RelativeLayout>
     </RelativeLayout>
 
     <com.mtsealove.github.food_delivery.Design.DrawerView
