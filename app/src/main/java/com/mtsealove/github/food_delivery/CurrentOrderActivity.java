@@ -8,7 +8,10 @@ import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mtsealove.github.food_delivery.Design.DrawerView;
 import com.mtsealove.github.food_delivery.Design.SystemUiTuner;
 import com.mtsealove.github.food_delivery.Entity.Order;
 import com.mtsealove.github.food_delivery.Restful.RestAPI;
@@ -32,6 +35,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     String memberID;
     String tag = getClass().getSimpleName();
     String address, orderTime, StatusName;
+    static DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +47,18 @@ public class CurrentOrderActivity extends AppCompatActivity {
         currentLocationTv = findViewById(R.id.currentLocationTv);
         statusTv = findViewById(R.id.statusTv);
         itemList = findViewById(R.id.itemLv);
+        drawerLayout=findViewById(R.id.drawerLayout);
 
         GetOrder();
     }
 
     //위치 설정
     private void setMap(double latitude, double longitude) {
+        //카카오맵 설정
         MapView mapView = new MapView(this);
         mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 3, true);
 
+        //마커 설정
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName("현재 위치");
         marker.setTag(0);
@@ -59,8 +66,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
 
+        //마커 표시
         mapView.addPOIItem(marker);
-
+        //화면에 추가
         mapLayout.addView(mapView);
     }
 
@@ -93,6 +101,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
     }
 
+    //화면에 상품 목록 표시
     private void SetRv(List<Order> orders) {
         String LastTime = null;
         ArrayList<String> items = new ArrayList<>();
@@ -132,5 +141,15 @@ public class CurrentOrderActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void OpenDrawer() {
+        if(!drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public static void CloseDrawer() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
     }
 }

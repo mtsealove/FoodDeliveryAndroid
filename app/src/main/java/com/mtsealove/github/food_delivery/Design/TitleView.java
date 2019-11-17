@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import com.mtsealove.github.food_delivery.IpActivity;
-import com.mtsealove.github.food_delivery.MainActivity;
-import com.mtsealove.github.food_delivery.R;
+import com.mtsealove.github.food_delivery.*;
+
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class TitleView extends RelativeLayout {
     Context context;
@@ -43,7 +43,7 @@ public class TitleView extends RelativeLayout {
         Log.d(tag, String.valueOf(R.layout.view_title));
 
         View layout = inflater.inflate(R.layout.view_title, TitleView.this, false);
-        logoIv=layout.findViewById(R.id.logoIv);
+        logoIv = layout.findViewById(R.id.logoIv);
         logoIv.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -65,6 +65,15 @@ public class TitleView extends RelativeLayout {
         switch (context.getClass().getSimpleName()) {
             case "MainActivity":
                 MainActivity.OpenDrawer();
+                break;
+            case "CurrentOrderActivity":
+                CurrentOrderActivity.OpenDrawer();
+                break;
+            case "LastOrderActivity":
+                LastOrderActivity.OpenDrawer();
+                break;
+            case "RestaurantListActivity":
+                RestaurantListActivity.OpenDrawer();
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package com.mtsealove.github.food_delivery;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         idEt = findViewById(R.id.idEt);
         pwEt = findViewById(R.id.pwEt);
         loginBtn = findViewById(R.id.loginBtn);
-        signUpTv=findViewById(R.id.signUpTv);
+        signUpTv = findViewById(R.id.signUpTv);
 
         SystemUiTuner tuner = new SystemUiTuner(this);
         tuner.setStatusBarWhite();
@@ -48,11 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         signUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
     }
+
+    ProgressDialog progressDialog;
 
     private void Login() {
         if (idEt.getText().toString().length() == 0) {
@@ -64,7 +67,13 @@ public class LoginActivity extends AppCompatActivity {
             RestAPI restAPI = new RestAPI(this);
             final String ID = idEt.getText().toString();
             final String pw = pwEt.getText().toString();
-            String token= FirebaseInstanceId.getInstance().getToken();
+            String token = FirebaseInstanceId.getInstance().getToken();
+
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("로그인 중입니다");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             Call<ResLogin> call = restAPI.getRetrofitService().PostLogin(ID, pw, token);
             call.enqueue(new Callback<ResLogin>() {
                 @Override
@@ -81,19 +90,22 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                     }
+                    progressDialog.dismiss();
                 }
 
                 @Override
                 public void onFailure(Call<ResLogin> call, Throwable t) {
                     Log.e(tag, t.toString());
+                    progressDialog.dismiss();
                 }
             });
         }
     }
 
-    private void SaveAccount(String id, String pw){
-        SharedPreferences pref=getSharedPreferences("pref", MODE_PRIVATE);
-        SharedPreferences.Editor editor=pref.edit();
+    //기기에 계정 저장
+    private void SaveAccount(String id, String pw) {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
         editor.putString("id", id);
         editor.putString("pw", pw);
         editor.commit();

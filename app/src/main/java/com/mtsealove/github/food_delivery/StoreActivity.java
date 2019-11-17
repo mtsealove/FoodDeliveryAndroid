@@ -61,10 +61,13 @@ public class StoreActivity extends AppCompatActivity {
         });
     }
 
+    //초기화
     private void init() {
         Intent intent = getIntent();
         restaurant = (Restaurant) intent.getSerializableExtra("restaurant");
+        //가게명 설정
         nameTv.setText(restaurant.getBusinessName());
+        //이미지 설정
         if (restaurant.getProfileImage() != null) {
             Glide.with(this)
                     .load(GetIP() + "/DeliveryService/Images/" + restaurant.getProfileImage())
@@ -76,6 +79,7 @@ public class StoreActivity extends AppCompatActivity {
         return restaurant.getID();
     }
 
+    //IP 얻기
     private String GetIP() {
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         return "http://"+pref.getString("ip", "");

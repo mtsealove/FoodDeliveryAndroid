@@ -1,18 +1,15 @@
 package com.mtsealove.github.food_delivery.Design;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.LocusId;
+import android.content.*;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.mtsealove.github.food_delivery.CurrentOrderActivity;
-import com.mtsealove.github.food_delivery.LoginActivity;
-import com.mtsealove.github.food_delivery.R;
+import com.mtsealove.github.food_delivery.*;
+import com.mtsealove.github.food_delivery.Entity.LastOrder;
+import com.mtsealove.github.food_delivery.Entity.Restaurant;
 
 import java.util.ArrayList;
 
@@ -84,13 +81,26 @@ public class DrawerView extends LinearLayout {
                     case 0:
                         moveCurrentOrder();
                         break;
+                    case 1:
+                        moveLastOrder();
+                        break;
                 }
             }
         });
     }
 
+    //현재 주문 화면으로 이동
     private void moveCurrentOrder() {
+        CloseDrawer();
         Intent intent = new Intent(context, CurrentOrderActivity.class);
+        context.startActivity(intent);
+
+    }
+
+    //이전 주문으로 이동
+    private void moveLastOrder() {
+        CloseDrawer();
+        Intent intent=new Intent(context, LastOrderActivity.class);
         context.startActivity(intent);
     }
 
@@ -127,11 +137,38 @@ public class DrawerView extends LinearLayout {
             public void onClick(DialogInterface dialog, int which) {
                 LoginActivity.login = null;
                 Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show();
-                DrawerView.checkLogin();
+                checkLogin();
+                CloseDrawer();
+                RemoveAccount();
             }
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    //기기에서 계정 삭제
+    private void RemoveAccount() {
+        SharedPreferences pref=context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.remove("id");
+        editor.remove("pw");
+        editor.commit();
+    }
+
+    private void CloseDrawer() {
+        switch (context.getClass().getSimpleName()) {
+            case "MainActivity":
+                MainActivity.CloseDrawer();
+                break;
+            case "CurrentOrderActivity":
+                CurrentOrderActivity.CloseDrawer();
+                break;
+            case "LastOrderActivity":
+                LastOrderActivity.CloseDrawer();
+                break;
+            case "RestaurantListActivity":
+                RestaurantListActivity.CloseDrawer();
+                break;
+        }
     }
 }

@@ -40,23 +40,18 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
         holder.onBind(listData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        // RecyclerView의 총 개수 입니다.
         return listData.size();
     }
 
     public void addItem(Menu data) {
-        // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
     }
 
-    // RecyclerView의 핵심인 ViewHolder 입니다.
-    // 여기서 subView를 setting 해줍니다.
     class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imgIv;
         TextView nameTv, priceTv, desTv;

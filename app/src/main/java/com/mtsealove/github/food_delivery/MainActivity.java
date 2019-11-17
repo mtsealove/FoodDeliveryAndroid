@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar loadPb;
     static DrawerLayout drawerLayout;
     AdView adView;
-    String tag=getClass().getSimpleName();
+    String tag = getClass().getSimpleName();
 
     //위치 관련
     LocationManager lm;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         SystemUiTuner tuner = new SystemUiTuner(this);
         tuner.setStatusBarWhite();
@@ -68,31 +69,20 @@ public class MainActivity extends AppCompatActivity {
         lunch_box.setOnClickListener(CatClickListener);
         coffee.setOnClickListener(CatClickListener);
         dessert.setOnClickListener(CatClickListener);
-        adView=findViewById(R.id.adView);
+        adView = findViewById(R.id.adView);
 
-        dropKeyboard();
         SetAdView();
-
         DrawerView.checkLogin();
     }
 
+    //광고 설정
     private void SetAdView() {
         Bundle extras = new Bundle();
-        extras.putString("max_ad_content_rating", "G"); // 앱이 3세 이상 사용가능이라면 광고레벨을 설정해줘야 한다
+        extras.putString("max_ad_content_rating", "G"); // 사용 연령 3세 이상
         AdRequest adRequest = new AdRequest.Builder()
                 .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                 .build();
         adView.loadAd(adRequest);
-    }
-
-    private void dropKeyboard() {
-
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-
     }
 
     //위치 정보 알아내기
@@ -102,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         SetAddress(location);
 
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, locationListener);
+        //1분/1M 에 한번 업데이트
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 1, locationListener);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 1, locationListener);
     }
 
     //위치정보 변경 리스너
@@ -115,17 +106,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-
         }
     };
 
@@ -187,9 +175,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //메뉴 열기
     public static void OpenDrawer() {
-        if(!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.openDrawer(GravityCompat.START);
         }
+    }
+
+    //메듀 닫기
+    public static void CloseDrawer() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
     }
 }

@@ -102,6 +102,7 @@ public class OrderSheetActivity extends AppCompatActivity {
 
     int price = 0;
 
+    //상품 각각의 정보 얻기
     public void GetItem(int ID) {
         RestAPI restAPI = new RestAPI(this);
         Call<Menu> call = restAPI.getRetrofitService().GetMenu(ID);
@@ -110,6 +111,7 @@ public class OrderSheetActivity extends AppCompatActivity {
             public void onResponse(Call<Menu> call, Response<Menu> response) {
                 if (response.isSuccessful()) {
                     Menu menu = response.body();
+                    //화면에 표시
                     recyclerAdapter.addItem(menu);
                     price += menu.getPrice();
                     priceTv.setText(price + "원");
@@ -128,6 +130,7 @@ public class OrderSheetActivity extends AppCompatActivity {
         });
     }
 
+    //주문 확인
     private void ConfirmOrder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("확인")
@@ -152,14 +155,12 @@ public class OrderSheetActivity extends AppCompatActivity {
 
     //주문 만들기
     private void CreateOrder() {
-
         orderDialog = new ProgressDialog(this);
         orderDialog.setMessage("주문을 처리중입니다");
         orderDialog.setCancelable(false);
         orderDialog.show();
         done = 0;
         RestAPI restAPI = new RestAPI(this);
-        //익명 사용자 ID
 
         String memberID;
         //로그인되어 있는지 확인

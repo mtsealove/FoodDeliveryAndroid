@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mtsealove.github.food_delivery.Design.RestaurantRecyclerAdapter;
@@ -32,6 +34,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     Location location;
     ProgressDialog progressDialog;
     TextView catTv;
+    static DrawerLayout drawerLayout;
 
     RecyclerView recyclerView;
     boolean finish = false;
@@ -42,6 +45,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_list);
         recyclerView = findViewById(R.id.restaurantRv);
         catTv = findViewById(R.id.catTv);
+        drawerLayout = findViewById(R.id.drawerLayout);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -92,6 +96,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         }
         catTv.setText(category);
 
+        //위치정보 얻
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
@@ -112,7 +117,7 @@ public class RestaurantListActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     restaurants = response.body();
                     progressDialog.setMessage("위치를 찾는 중입니다");
-                    //현재 위치와 거리 계산
+                    //현재 위치와 거리 계산기
                     for (Restaurant restaurant : restaurants) {
                         restaurant.setDistance(RestaurantListActivity.this, location);
                     }
@@ -185,6 +190,16 @@ public class RestaurantListActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+    }
 
+    public static void OpenDrawer(){
+        if(!drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+    }
+
+    public static void CloseDrawer() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.openDrawer(GravityCompat.START);
     }
 }

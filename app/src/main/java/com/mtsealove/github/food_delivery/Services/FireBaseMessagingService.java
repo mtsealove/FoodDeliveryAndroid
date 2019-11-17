@@ -22,22 +22,9 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             sendNotification(remoteMessage.getData().get("message"));
-
-            if (true) {
-
-            } else {
-                handleNow();
-            }
         }
-    }
-
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
     }
 
     private void sendNotification(String messageBody) {

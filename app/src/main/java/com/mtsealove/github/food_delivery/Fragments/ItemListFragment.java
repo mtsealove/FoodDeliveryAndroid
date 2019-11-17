@@ -83,13 +83,6 @@ public class ItemListFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -114,6 +107,7 @@ public class ItemListFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    //상품 리스트 받기
     private void GetItemList() {
         RestAPI restAPI = new RestAPI(getContext());
         Call<List<Menu>> call = restAPI.getRetrofitService().GetMenuList(managerID);
@@ -121,7 +115,7 @@ public class ItemListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
                 if (response.isSuccessful()) {
-
+                    //화면에 추가
                     MenuRecyclerAdapter adapter = new MenuRecyclerAdapter(getContext());
                     for (Menu menu : response.body()) {
                         adapter.addItem(menu);
@@ -131,9 +125,9 @@ public class ItemListFragment extends Fragment {
                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (orderList.size() == 0) {
+                            if (orderList.size() == 0) {    //선택한 상품이 없으면
                                 Toast.makeText(getContext(), "선택한 상품이 없어요", Toast.LENGTH_SHORT).show();
-                            } else {
+                            } else {    //주문 화면으로 이동
                                 Intent intent = new Intent(getContext(), OrderSheetActivity.class);
                                 intent.putExtra("orderList", orderList);
                                 intent.putExtra("managerID", managerID);
@@ -141,12 +135,14 @@ public class ItemListFragment extends Fragment {
                             }
                         }
                     });
+                } else {
+                    Toast.makeText(getContext(), "오류 발생", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Menu>> call, Throwable t) {
-
+                Toast.makeText(getContext(), "서버 연결 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }

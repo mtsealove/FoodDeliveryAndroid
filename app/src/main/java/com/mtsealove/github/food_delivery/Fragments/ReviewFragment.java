@@ -119,6 +119,7 @@ public class ReviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    //리뷰 목록 읽어오기
     private void GetReview() {
         RestAPI restAPI = new RestAPI(getContext());
         Call<List<Review>> call = restAPI.getRetrofitService().GetReview(managerID);
@@ -142,13 +143,14 @@ public class ReviewFragment extends Fragment {
         });
     }
 
+    //리뷰 작성
     private void PostReView() {
         if (replyEt.getText().toString().length() == 0) {
             Toast.makeText(getContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show();
             return;
         } else {
             String memberID = null;
-            if (LoginActivity.login == null) {
+            if (LoginActivity.login == null) {  //로그인 이전에 작성 불가
                 Toast.makeText(getContext(), "로그인 후 작성하실 수 있습니다", Toast.LENGTH_SHORT).show();
                 return;
             } else {

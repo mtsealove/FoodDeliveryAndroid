@@ -51,7 +51,6 @@ public class SignUpActivity extends AppCompatActivity {
     TextWatcher idWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
@@ -65,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     };
 
+    //아이디 존재하는지 확인
     private void CheckIdExist(String ID) {
         RestAPI restAPI = new RestAPI(this);
         Call<ResIdExist> call = restAPI.getRetrofitService().CheckIdExist(ID);
@@ -91,6 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    //회원가입 입력 값 체크
     private void CheckInput() {
         if (idEt.getText().toString().length() == 0) {
             Toast.makeText(this, "아이디를 입력하세요", Toast.LENGTH_SHORT).show();
@@ -111,6 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    //서버에 회원 생성
     private void CreateMember() {
         String ID = idEt.getText().toString();
         String pw = pwEt.getText().toString();
@@ -125,12 +127,14 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
                         finish();
                     }
+                } else {
+                    Toast.makeText(SignUpActivity.this, "알 수 없는 오류가 발생하였습니다", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-
+                Toast.makeText(SignUpActivity.this, "서버에 연결할 수 없습니다", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -28,6 +28,9 @@ public interface RetrofitService {
     @GET("DeliveryService/Android/Normal/Get/CurrentOrder.php")
     Call<List<Order>> GetCurrentOrder(@Query("MemberID") String MemberID);
 
+    @GET("DeliveryService/Android/Normal/Get/LastOrder.php")
+    Call<List<LastOrder>> GetLastOrders(@Query("MemberID") String memberID);
+
     @FormUrlEncoded
     @POST("DeliveryService/Android/Normal/Post/Login.php")
     Call<ResLogin> PostLogin(@Field("ID") String ID, @Field("Password") String password, @Field("Token") String token);
